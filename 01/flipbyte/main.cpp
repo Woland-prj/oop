@@ -40,6 +40,7 @@ void PrintHelp()
 			  << "flipbyte -h - show this text\n";
 }
 
+// Поправить именование констант, порядок фугкций
 int main(int argc, char* argv[])
 {
 	if (argc != REQUIRED_ARGS)

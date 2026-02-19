@@ -1,0 +1,142 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.30"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "01",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4
+					],
+					"jsonFile" : "directory-01-Debug-c2a9d23fbba2efec603b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.30"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "01"
+				},
+				{
+					"build" : "01/replace",
+					"jsonFile" : "directory-01.replace-Debug-4b6580ae28dc4d4b3130.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.30"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "01/replace",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "01/flipbyte",
+					"jsonFile" : "directory-01.flipbyte-Debug-d02bb8c2fc0870b5ddfa.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.30"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "01/flipbyte",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "01/invert",
+					"jsonFile" : "directory-01.invert-Debug-ed56d20cbfca8d0cab48.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.30"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "01/invert",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					],
+					"name" : "oop",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "flipbyte::@9899ecf98c6753b04859",
+					"jsonFile" : "target-flipbyte-Debug-3066210f5f330706f003.json",
+					"name" : "flipbyte",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "invert::@000bbb568e21a50bdaa8",
+					"jsonFile" : "target-invert-Debug-e15865180060bfad15b8.json",
+					"name" : "invert",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "replace::@ac0c62e3479ffd826fa4",
+					"jsonFile" : "target-replace-Debug-22dd0d594985afd24937.json",
+					"name" : "replace",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/woland/learn/oop/cmake-build-debug",
+		"source" : "/Users/woland/learn/oop"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
