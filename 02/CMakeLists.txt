@@ -1,0 +1,3 @@
+add_subdirectory(min_vector)
+add_subdirectory(html_decode)
+add_subdirectory(dictionary)

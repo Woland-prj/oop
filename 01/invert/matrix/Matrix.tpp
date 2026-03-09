@@ -1,12 +1,11 @@
-#ifndef MATRIX_TPP
-#define MATRIX_TPP
-#include "Matrix.hpp"
 #include <cmath>
 #include <stdexcept>
 #include <cstddef>
 #include <sstream>
+#include <iomanip>
 
 constexpr double k_epsilon = 1e-12;
+constexpr std::size_t k_precision = 3;
 
 template <size_t N>
 Matrix<N>::Matrix() = default;
@@ -188,11 +187,17 @@ void Matrix<N>::SwapRows(size_t r1, size_t r2)
 template <size_t N>
 std::ostream& operator<<(std::ostream& out, const Matrix<N>& m)
 {
+    out << std::fixed << std::setprecision(k_precision);
 	for (size_t row = 0; row < N; ++row)
 	{
 		for (size_t col = 0; col < N; ++col)
 		{
-			out << m(row, col);
+		    double value = m(row, col);
+
+            if (std::abs(value) < k_epsilon) // Делать не при выводе, а при расчетах
+                value = 0.0;
+
+            out << value;
 			if (col != N - 1)
 				out << '\t';
 		}
@@ -200,5 +205,3 @@ std::ostream& operator<<(std::ostream& out, const Matrix<N>& m)
 	}
 	return out;
 }
-
-#endif // MATRIX_TPP

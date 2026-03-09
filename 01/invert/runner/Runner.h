@@ -1,6 +1,6 @@
-#ifndef INVERTAPP_H
-#define INVERTAPP_H
+#ifndef RUNNER_H
+#define RUNNER_H
 
 void Run(int argc, char* argv[]);
 
-#endif // INVERTAPP_H
+#endif // RUNNER_H

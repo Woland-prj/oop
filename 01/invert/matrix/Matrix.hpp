@@ -27,7 +27,7 @@ private:
 	double DetGaussian();
 	void SwapRows(size_t r1, size_t r2);
 
-	std::array<double, N * N> data{};
+	std::array<double, N * N> data;
 };
 
 template <size_t N>

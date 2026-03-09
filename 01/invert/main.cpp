@@ -1,15 +1,18 @@
-#include "matrix/Matrix.hpp"
+#include "runner/Runner.h"
+#include <exception>
 #include <iostream>
 
-int main()
+// тест на 4x4
+int main(int argc, char* argv[])
 {
-	const Matrix m({
-		{ 1, 2, 3, 5, 8 },
-		{ 2, 11, 6, 7, 12 },
-		{ 1, 15, 34, 8, 13 },
-		{ 7, 12, 5, 12.67, 1.34 },
-		{ 123, 1.28, 5.17, 18.9, 0 }
-	});
-
-	std::cout << m.Invert();
+	try
+	{
+		Run(argc, argv); // Сменить назваеме
+		return 0;
+	}
+	catch (const std::exception& ex)
+	{
+		std::cout << ex.what();
+		return 1;
+	}
 }

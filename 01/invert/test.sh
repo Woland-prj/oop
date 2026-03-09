@@ -3,7 +3,7 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 BUILD_DIR="${PROJECT_ROOT}/build"
-BIN="${BUILD_DIR}/02/invert/invert"
+BIN="${BUILD_DIR}/01/invert/invert"
 TEST_DIR="${SCRIPT_DIR}/tests"
 
 PASS=0
@@ -13,6 +13,11 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
+
+cleanup() {
+    rm -rf "${TEST_DIR}"
+}
+trap cleanup EXIT
 
 setup_tests() {
     mkdir -p "${TEST_DIR}/input" "${TEST_DIR}/expected" "${TEST_DIR}/output"
@@ -94,6 +99,23 @@ EOF
 0	1	4
 5	6	0
 EOF
+
+    # 9: 4x4
+    cat > "${TEST_DIR}/input/test9.stdin" <<'EOF'
+1	2	3 7
+0	1	4 9
+5	6	0 12
+3 8 19 11
+EOF
+
+    # 9: 4x4
+    cat > "${TEST_DIR}/input/test9.stdin" <<'EOF'
+1	2	3 7
+0	1	4 9
+5	6	0 12
+3 8 19 11
+EOF
+
 }
 
 build_project() {
@@ -154,13 +176,13 @@ run_test() {
 run_tests() {
     echo -e "\n${GREEN}Running tests${NC}"
 
-    run_test "example1" "Example from task" "file" \
+    run_test "example1" "Example 1" "file" \
         "${TEST_DIR}/input/test1.txt" "${TEST_DIR}/expected/test1.txt"
 
     run_test "fractions" "Matrix with fractions" "file" \
         "${TEST_DIR}/input/test2.txt" "${TEST_DIR}/expected/test2.txt"
 
-    run_test "singular" "Singular matrix" "file" \
+    run_test "singular" "Singular matrix (Non-invertible)" "file" \
         "${TEST_DIR}/input/test3.txt" "${TEST_DIR}/expected/test3.txt"
 
     run_test "invalid_format" "Invalid matrix format" "file" \
@@ -177,6 +199,9 @@ run_tests() {
 
     run_test "stdin" "Read from stdin" "stdin" \
         "${TEST_DIR}/input/test8.stdin" "${TEST_DIR}/expected/test1.txt"
+
+    run_test "stdin" "Read from stdin" "stdin" \
+        "${TEST_DIR}/input/test9.stdin" "${TEST_DIR}/expected/test9.txt"
 }
 
 print_summary() {

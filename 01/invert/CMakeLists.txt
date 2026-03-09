@@ -2,9 +2,7 @@ add_executable(
 	invert
 	main.cpp
 	runner/Runner.cpp
-	matrix/Matrix.tpp
-	matrix/Matrix.hpp
-	inverting/Inverting.hpp
+	matrix/Matrix.cpp
 )
 
 target_include_directories(
