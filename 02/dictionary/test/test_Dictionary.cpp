@@ -55,8 +55,7 @@ TEST_CASE("LoadDictionary loads multiple words", "[LoadDictionary]")
 	auto input = CreateTestFile(
 		"test_dict_multi_words.txt",
 		"cat:кот,кошка\n"
-		"dog:собака\n"
-	);
+		"dog:собака\n");
 
 	auto dict = LoadDictionary(input);
 
@@ -72,8 +71,7 @@ TEST_CASE("LoadDictionary stops reading at end marker", "[LoadDictionary]")
 		"test_dict_end_marker.txt",
 		"cat:кот\n"
 		"===\n"
-		"dog:собака\n"
-	);
+		"dog:собака\n");
 
 	auto dict = LoadDictionary(input);
 
@@ -87,7 +85,7 @@ TEST_CASE("LoadDictionary stops reading at end marker", "[LoadDictionary]")
 TEST_CASE("FindTranslation returns translations for existing word", "[FindTranslation]")
 {
 	Dictionary dict;
-	dict["cat"] = {"кот", "кошка"};
+	dict["cat"] = { "кот", "кошка" };
 
 	auto result = FindTranslation(dict, "cat");
 
@@ -99,7 +97,7 @@ TEST_CASE("FindTranslation returns translations for existing word", "[FindTransl
 TEST_CASE("FindTranslation returns empty set for unknown word", "[FindTranslation]")
 {
 	Dictionary dict;
-	dict["cat"] = {"кот"};
+	dict["cat"] = { "кот" };
 
 	auto result = FindTranslation(dict, "dog");
 
@@ -153,7 +151,7 @@ TEST_CASE("SaveDictionary writes empty dictionary", "[SaveDictionary]")
 TEST_CASE("SaveDictionary writes single word", "[SaveDictionary]")
 {
 	Dictionary dict;
-	dict["cat"] = {"кот"};
+	dict["cat"] = { "кот" };
 
 	std::stringstream output;
 	SaveDictionary(output, dict);
@@ -164,7 +162,7 @@ TEST_CASE("SaveDictionary writes single word", "[SaveDictionary]")
 TEST_CASE("SaveDictionary writes multiple translations", "[SaveDictionary]")
 {
 	Dictionary dict;
-	dict["cat"] = {"кот", "кошка"};
+	dict["cat"] = { "кот", "кошка" };
 
 	std::stringstream output;
 	SaveDictionary(output, dict);
@@ -179,8 +177,8 @@ TEST_CASE("SaveDictionary writes multiple translations", "[SaveDictionary]")
 TEST_CASE("SaveDictionary writes multiple words", "[SaveDictionary]")
 {
 	Dictionary dict;
-	dict["cat"] = {"кот"};
-	dict["dog"] = {"собака"};
+	dict["cat"] = { "кот" };
+	dict["dog"] = { "собака" };
 
 	std::stringstream output;
 	SaveDictionary(output, dict);
