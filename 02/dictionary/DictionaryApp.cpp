@@ -74,6 +74,7 @@ void RunUI(Dictionary& dict, const std::string& dictFile)
 				RunSaveDialog(dict, dictFile);
 			break;
 		}
+		// Вынести в 2 разных метода
 		const auto translations = FindTranslation(dict, line);
 		if (translations.empty())
 		{

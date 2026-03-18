@@ -67,3 +67,4 @@ void Decrypt(std::istream& in, std::ostream& out, uint8_t key)
 		return b;
 	});
 }
+

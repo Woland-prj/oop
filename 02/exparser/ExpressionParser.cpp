@@ -19,6 +19,7 @@ void ApplyOp(Frame& f, int64_t v)
 		f.acc *= v;
 }
 
+// Разбить на отдельные функции обработки
 int64_t EvalPrefixExpression(std::istream& input)
 {
 	std::stack<Frame> frames;

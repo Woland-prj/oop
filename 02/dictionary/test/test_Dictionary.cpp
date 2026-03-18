@@ -7,6 +7,7 @@
 #include <sstream>
 #include <string>
 
+// Проверить регистронезависимость для русского языка
 static std::ifstream CreateTestFile(const std::string& filename, const std::string& content)
 {
 	std::ofstream file(filename);

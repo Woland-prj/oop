@@ -6,6 +6,7 @@
 #include <set>
 #include <string>
 
+// Переделать на unordered_map
 using Dictionary = std::map<std::string, std::set<std::string>>;
 
 Dictionary LoadDictionary(std::ifstream& in);
@@ -16,4 +17,4 @@ void AddTranslation(Dictionary& dict, const std::string& word, const std::string
 
 void SaveDictionary(std::ostream& out, const Dictionary& dict);
 
-#endif //DICTIONARY_HPP
+#endif // DICTIONARY_HPP

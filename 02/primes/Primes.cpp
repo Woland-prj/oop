@@ -13,6 +13,7 @@ std::set<int> GeneratePrimeNumbersSet(int upperBound)
 	sieve[0] = false;
 	sieve[1] = false;
 
+	// По каждому второму числу
 	for (int i = 2; i * i <= upperBound; ++i)
 	{
 		if (!sieve[i])
