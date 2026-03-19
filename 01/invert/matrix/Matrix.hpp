@@ -3,6 +3,7 @@
 
 #include <array>
 #include <cstddef>
+#include <istream>
 
 template <size_t N>
 class Matrix

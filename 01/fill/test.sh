@@ -20,6 +20,7 @@ cleanup() {
 trap cleanup EXIT
 
 
+# TODO: Дополнить тесты
 setup_tests() {
     mkdir -p "${TEST_DIR}/input" "${TEST_DIR}/output" "${TEST_DIR}/expected"
 

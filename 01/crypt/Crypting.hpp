@@ -2,6 +2,7 @@
 #define CRYPTING_HPP
 
 #include <cstdint>
+#include <functional>
 #include <istream>
 #include <ostream>
 

@@ -3,6 +3,7 @@
 
 #include <istream>
 #include <ostream>
+#include <vector>
 
 using Image = std::vector<std::string>;
 

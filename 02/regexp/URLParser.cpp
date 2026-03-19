@@ -5,6 +5,7 @@
 #include <string>
 #include <string_view>
 
+// TODO: Узнать как использовтаь k_
 constexpr std::string_view k_httpName = "http";
 constexpr std::string_view k_httpsName = "https";
 constexpr std::string_view k_ftpName = "ftp";
@@ -23,6 +24,7 @@ constexpr size_t k_matchIndexDoc = 4;
 
 bool ParseURL(std::string const& url, Protocol& protocol, int& port, std::string& host, std::string& document)
 {
+	// TODO: Заменить на константы
 	static const std::regex urlRegex(
 		R"(^(http|https|ftp)://([^/:]+)(?::(\d+))?(?:/(.*))?$)",
 		std::regex::icase);
@@ -35,6 +37,7 @@ bool ParseURL(std::string const& url, Protocol& protocol, int& port, std::string
 	std::string proto = match[k_matchIndexProto].str();
 	std::transform(proto.begin(), proto.end(), proto.begin(), ::tolower);
 
+	// TODO: Вынести в отдельный метод
 	if (proto == k_httpName)
 	{
 		protocol = Protocol::HTTP;

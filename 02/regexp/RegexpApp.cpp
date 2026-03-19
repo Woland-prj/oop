@@ -14,9 +14,11 @@ void RunRegexpApp(std::istream& in, std::ostream& out)
 		int port;
 		std::string host, document;
 
+		// TODO: Использовтаь структуру
 		if (!ParseURL(url, protocol, port, host, document))
-			throw std::invalid_argument("inval url address");
+			throw std::invalid_argument("invalid url address");
 
+		// TODO: Вынести в отдельный метод
 		out << url << std::endl;
 		out << "HOST: " << host << std::endl;
 		out << "PORT: " << port << std::endl;

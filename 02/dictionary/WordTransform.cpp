@@ -1,4 +1,5 @@
 #include <WordTransform.hpp>
+#include <algorithm>
 
 // Обрабатывать русские символы отднльно
 void ToLower(std::string& s)

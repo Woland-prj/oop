@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <charconv>
 #include <cstdlib>
+#include <format>
 #include <iomanip>
 #include <stdexcept>
 #include <string>
@@ -22,9 +23,9 @@ std::vector<double> ReadNumbers(std::istream& in)
 		if (ec == std::errc())
 			res.push_back(num);
 		else if (ec == std::errc::invalid_argument)
-			throw std::invalid_argument(std::format("%s is not a floating point number", token));
+			throw std::invalid_argument(std::format("{} is not a floating point number", token));
 		else if (ec == std::errc::result_out_of_range)
-			throw std::out_of_range(std::format("%s is bigger than double", token));
+			throw std::out_of_range(std::format("{} is bigger than double", token));
 	}
 	return res;
 };

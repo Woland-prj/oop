@@ -13,6 +13,7 @@
 constexpr int k_helpArgsCount = 2;
 constexpr int k_cryptArgsCount = 5;
 
+// TODO поправить кейс сиволов
 constexpr int k_cmdIndex = 1;
 constexpr int k_InputIndex = 2;
 constexpr int k_OutputIndex = 3;
@@ -30,8 +31,6 @@ void PrintHelp()
 				 "  crypt --help\n\n"
 				 "key: integer in range [0..255]\n";
 }
-void RunCrypt(char* argv[]);
-void RunDecrypt(char* argv[]);
 
 uint8_t ParseByte(const std::string_view& argStr)
 {

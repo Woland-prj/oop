@@ -11,4 +11,4 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-set_target_properties(crypt PROPERTIES OUTPUT_NAME "fill")
+set_target_properties(fill PROPERTIES OUTPUT_NAME "fill")

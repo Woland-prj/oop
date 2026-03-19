@@ -2,6 +2,7 @@
 
 #include <cctype>
 #include <cstdint>
+#include <format>
 #include <stack>
 #include <stdexcept>
 
