@@ -1,40 +1,73 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.1 Chrome/142.0.7444.265 Electron/39.8.0 Safari/537.36" version="29.6.1">
   <diagram name="Page-1" id="tOpPY6syZwrKaGl5XrNX">
-    <mxGraphModel dx="781" dy="515" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1732" dy="992" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="vEiJh2VDi1zO-8z6nrGe-1" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Car&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- m_engineOn: bool&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- m_speed: uint8_t&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- m_gear: uint8_t&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- IsGearValid(): bool&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- IsSpeedValid(): bool&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ TurnOnEngine: void&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;TurnOffEngine: void&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ SetGear(int gear): void&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ SetSpeed(int speed): void&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ IsTurnedOn(): bool&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ GetDirection(): CarDirection&amp;nbsp;&lt;/span&gt;&lt;/p&gt;" vertex="1">
-          <mxGeometry height="220" width="200" x="250" y="320" as="geometry" />
+        <mxCell id="vEiJh2VDi1zO-8z6nrGe-1" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Car&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- m_isEngineOn: bool&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- m_speed: int8_t&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- m_gear: Gear&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- MIN_AVALIABLE_GEAR: const int8_t&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- MAX_AVALIABLE_GEAR: const int8_t&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- GEAR_SPEED_MATCH_TABLE: const unordered_map&amp;lt;Gear, SpeedRange&amp;gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- IsGearMatchSpeed(gear: Gear, absSpeed: uint8_t): bool;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ TurnOnEngine: void&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;TurnOffEngine: void&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ SetGear(int gear): void&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ SetSpeed(int speed): void&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ IsTurnedOn(): bool&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ GetDirection(): CarDirection&amp;nbsp;&lt;/span&gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="270" width="260" x="-260" y="290" as="geometry" />
         </mxCell>
         <mxCell id="vEiJh2VDi1zO-8z6nrGe-13" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;enumiration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;CarDirection&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;Forward&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;Backward&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;Standing&lt;/p&gt;" vertex="1">
-          <mxGeometry height="100" width="190" x="520" y="320" as="geometry" />
+          <mxGeometry height="100" width="190" x="70" y="290" as="geometry" />
         </mxCell>
         <mxCell id="vEiJh2VDi1zO-8z6nrGe-14" edge="1" parent="1" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;entryX=0.454;entryY=1.011;entryDx=0;entryDy=0;entryPerimeter=0;" target="vEiJh2VDi1zO-8z6nrGe-13" value="Use">
           <mxGeometry relative="1" width="160" as="geometry">
             <Array as="points">
-              <mxPoint x="606" y="520" />
+              <mxPoint x="156" y="490" />
             </Array>
-            <mxPoint x="450" y="520" as="sourcePoint" />
-            <mxPoint x="610" y="520" as="targetPoint" />
+            <mxPoint y="490" as="sourcePoint" />
+            <mxPoint x="160" y="490" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="vEiJh2VDi1zO-8z6nrGe-15" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="CarDriver" vertex="1">
-          <mxGeometry height="86" width="160" x="30" y="320" as="geometry" />
+          <mxGeometry height="290" width="340" x="-790" y="290" as="geometry" />
         </mxCell>
-        <mxCell id="vEiJh2VDi1zO-8z6nrGe-16" parent="vEiJh2VDi1zO-8z6nrGe-15" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- m_car: Car" vertex="1">
-          <mxGeometry height="26" width="160" y="26" as="geometry" />
+        <mxCell id="zyy1eoYVK0t4__Af0e3j-1" parent="vEiJh2VDi1zO-8z6nrGe-15" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- m_input: istream&amp;amp;&lt;div&gt;- m_output: ostream&amp;amp;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;-&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;m_commands:&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;unordered_map&amp;lt;std::string, Handler&amp;gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;- InitCommands(): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;- HandleCommand(line: const string&amp;amp;, car: Car&amp;amp;): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- InfoCmd(car: Car&amp;amp;): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;- EngineOnCmd(car: Car&amp;amp;): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;- EngineOffCmd(car: Car&amp;amp;): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;- SetGearCmd(car: Car&amp;amp;, gear: int8_t): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;- SetSpeedCmd(car: Car&amp;amp;, speed: int8_t): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;- WrapNoArg(void (CarDriver::*method)(Car&amp;amp;)): Handler&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;- WrapArg(void (CarDriver::*method)(Car&amp;amp;, int8_t)): Handler&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;- ParseInt(arg: string_view): int8_t;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="214" width="340" y="26" as="geometry" />
         </mxCell>
         <mxCell id="vEiJh2VDi1zO-8z6nrGe-17" parent="vEiJh2VDi1zO-8z6nrGe-15" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="160" y="52" as="geometry" />
+          <mxGeometry height="8" width="340" y="240" as="geometry" />
         </mxCell>
-        <mxCell id="vEiJh2VDi1zO-8z6nrGe-18" parent="vEiJh2VDi1zO-8z6nrGe-15" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ Drive(): void" vertex="1">
-          <mxGeometry height="26" width="160" y="60" as="geometry" />
+        <mxCell id="zyy1eoYVK0t4__Af0e3j-2" parent="vEiJh2VDi1zO-8z6nrGe-15" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+&amp;nbsp;CarDriver(input: istream&amp;amp;, output: ostream&amp;amp;);&lt;div&gt;+ Drive(car: Car&amp;amp;): void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="42" width="340" y="248" as="geometry" />
         </mxCell>
-        <mxCell id="vEiJh2VDi1zO-8z6nrGe-21" edge="1" parent="1" source="vEiJh2VDi1zO-8z6nrGe-1" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;exitX=-0.003;exitY=0.103;exitDx=0;exitDy=0;exitPerimeter=0;" target="vEiJh2VDi1zO-8z6nrGe-15" value="">
+        <mxCell id="zyy1eoYVK0t4__Af0e3j-4" edge="1" parent="1" source="vEiJh2VDi1zO-8z6nrGe-15" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0.996;exitY=0.05;exitDx=0;exitDy=0;exitPerimeter=0;" value="Use">
           <mxGeometry relative="1" width="160" as="geometry">
-            <mxPoint x="246" y="340" as="sourcePoint" />
-            <mxPoint x="470" y="460" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-390" y="400" />
+            </Array>
+            <mxPoint x="-420" y="400" as="sourcePoint" />
+            <mxPoint x="-260" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zyy1eoYVK0t4__Af0e3j-5" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;SpeedRange&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;div style=&quot;height:2px;&quot;&gt;pair&amp;lt;uint8_t, uint8_t&amp;gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="70" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zyy1eoYVK0t4__Af0e3j-6" edge="1" parent="1" source="zyy1eoYVK0t4__Af0e3j-5" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;exitX=0.385;exitY=1.016;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" target="vEiJh2VDi1zO-8z6nrGe-1" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <Array as="points">
+              <mxPoint x="124" y="220" />
+            </Array>
+            <mxPoint x="-140" y="230" as="sourcePoint" />
+            <mxPoint x="20" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zyy1eoYVK0t4__Af0e3j-7" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;enumiration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Gear&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style: solid;&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;Reverse&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;Neutral&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;First&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;Second&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;Third&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Fourth&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;&lt;span style=&quot;white-space: normal;&quot;&gt;Fifth&lt;/span&gt;&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="140" x="-200" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="zyy1eoYVK0t4__Af0e3j-8" edge="1" parent="1" source="zyy1eoYVK0t4__Af0e3j-7" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;exitX=0.389;exitY=1.002;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.44;entryY=0.014;entryDx=0;entryDy=0;entryPerimeter=0;" target="vEiJh2VDi1zO-8z6nrGe-1" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="-140" y="220" as="sourcePoint" />
+            <mxPoint x="20" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zyy1eoYVK0t4__Af0e3j-9" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Handler&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;div style=&quot;height:2px;&quot;&gt;&amp;nbsp;function&amp;lt;void(istringstream&amp;amp;, Car&amp;amp;)&amp;gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="210" x="-650" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="zyy1eoYVK0t4__Af0e3j-10" edge="1" parent="1" source="zyy1eoYVK0t4__Af0e3j-9" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.722;entryY=0.001;entryDx=0;entryDy=0;entryPerimeter=0;" target="vEiJh2VDi1zO-8z6nrGe-15" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="-420" y="250" as="sourcePoint" />
+            <mxPoint x="-260" y="250" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
