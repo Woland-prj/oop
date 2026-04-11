@@ -1,0 +1,12 @@
+var x
+var y
+fn XPlusY=x+y
+print XPlusY
+let x=3
+let y=4
+print XPlusY
+let x=10
+print XPlusY
+let z=3.5
+fn XPlusYDivZ=XPlusY/z
+printfns

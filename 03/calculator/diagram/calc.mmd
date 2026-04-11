@@ -1,0 +1,161 @@
+classDiagram
+
+class CommandResult {
+  <<enumeration>>
+  Success
+  UnknownCommand
+  InvalidUsage
+  NameExists
+  NameNotFound
+}
+
+class DispatcherMap {
+  <<type alias>>
+  using HandlerFn = function~CommandResult(istringstream&, Context&)~
+  +map~string, HandlerFn~ handlers
+  +Register(name: string, fn: HandlerFn)
+  +Dispatch(cmd: string, args: istringstream&, ctx: Context&): CommandResult
+}
+
+class Calculator {
+  -m_input: istream&
+  -m_output: ostream&
+  -m_context: Context
+  -m_parser: Parser
+  -m_dispatcher: DispatcherMap
+  +Run(): void
+  +SetupHandlers()
+}
+
+class Context {
+  -m_variables: unordered_map~string, Variable~
+  -m_functions: unordered_map~string, FunctionNode~
+  -m_dependencyGraph: DependencyGraph
+  -m_dependencyVersions: unordered_map~string, size_t~
+  +AddVariable(name: string, value: double): CommandResult
+  +AddFunction(name: string, expr: unique_ptr~Expression~): CommandResult
+  +GetValue(identifier: const string&): optional~double~
+  +Evaluate(identifier: const string&): optional~double~
+  +IncrementVersion(identifier: const string&)
+  +GetVersion(identifier: const string&): size_t
+  +HasIdentifier(name: string): bool
+  +WouldCreateCycle(funcName: string, dep: string): bool
+}
+
+class Variable {
+  -m_name: string
+  -m_value: optional~double~
+  +GetValue(): optional~double~
+  +SetValue(value: double)
+}
+
+class FunctionNode {
+  -m_name: string
+  -m_expression: unique_ptr~Expression~
+  -m_dependencies: vector~string~
+  -m_cachedValue: optional~double~
+  -m_depVersions: unordered_map~string, size_t~
+  +Evaluate(context: Context&): optional~double~
+  +IsCacheValid(context: const Context&): bool
+  +UpdateCache(value: double, versions: const map~string,size_t~&)
+  +InvalidateCache()
+}
+
+class DependencyGraph {
+  -m_edges: unordered_map~string, vector~string~~
+  -m_reverseEdges: unordered_map~string, vector~string~~
+  +AddDependency(from: string, to: string): bool
+  +HasCycle(start: string): bool
+  +TopologicalSortFrom(start: string): vector~string~
+  +GetDependents(identifier: string): const vector~string~&
+}
+
+
+class Parser {
+  +ParseCommandName(line: string): optional~string~
+  +ParseArguments(line: string, cmdName: string): istringstream
+  +ParseExpression(expr: string): unique_ptr~Expression~
+  +IsValidIdentifier(id: string): bool
+  +ExtractOperands(expr: string): tuple~string, optional~Operation~, string~
+}
+
+class Expression {
+  <<interface>>
+  +Accept(visitor: ExpressionVisitor&) void
+}
+
+class ExpressionVisitor {
+  <<interface>>
+  +VisitNumber(expr: NumberExpression&) void
+  +VisitIdentifier(expr: IdentifierExpression&) void
+  +VisitBinary(expr: BinaryExpression&) void
+}
+
+class EvaluateVisitor {
+  -m_context: Context&
+  -m_result: optional~double~
+  -m_divisionByZero: bool
+  +GetResult(): optional~double~
+  +HasError(): bool
+}
+
+class DependencyVisitor {
+  -m_dependencies: set~string~
+  +GetDependencies(): set~string~&&
+}
+
+ExpressionVisitor <|.. EvaluateVisitor
+ExpressionVisitor <|.. DependencyVisitor
+
+class NumberExpression {
+  -m_value: double
+  +Accept(visitor: ExpressionVisitor&) void
+}
+
+class IdentifierExpression {
+  -m_name: string
+  +Accept(visitor: ExpressionVisitor&) void
+}
+
+class BinaryExpression {
+  -m_left: unique_ptr~Expression~
+  -m_right: unique_ptr~Expression~
+  -m_op: Operation
+  +Accept(visitor: ExpressionVisitor&) void
+}
+
+class Operation {
+  <<enumeration>>
+  ADD
+  SUB
+  MUL
+  DIV
+}
+
+Expression <|-- NumberExpression
+Expression <|-- IdentifierExpression
+Expression <|-- BinaryExpression
+BinaryExpression --> Operation
+BinaryExpression --> Expression : владеет
+
+Calculator --> Context : управляет
+Calculator --> Parser : использует
+Calculator --> DispatcherMap : делегирует
+
+DispatcherMap ..> Context : передаёт в обработчики
+DispatcherMap ..> Parser : использует для парсинга аргументов
+
+Context --> Variable : хранит
+Context --> FunctionNode : хранит
+Context --> DependencyGraph : использует
+
+FunctionNode --> Expression : владеет выражением
+FunctionNode ..> Context : запрашивает значения
+
+DependencyGraph ..> Context : уведомляет об изменениях
+
+Parser ..> Expression : парсит в AST
+EvaluateVisitor --> Context : читает значения
+DependencyVisitor ..> Expression : собирает зависимости
+
+
