@@ -1,0 +1,43 @@
+# Ракета в открытом космосе
+# Центр сцены: (0,0), Y растёт вниз
+
+# Фон
+rectangle -400 -300 800 600 000000 #49414c
+
+# Звёзды
+circle -150 -120 2.5 ffffff ffffff
+circle 120 -180 1.8 ffffff ffffff
+circle 180 60 2 ffffff ffffff
+circle -100 140 3 ffffff ffffff
+circle 60 160 1.5 ffffff ffffff
+circle -190 -40 2 ffffff ffffff
+circle 150 -50 2.5 ffffff ffffff
+circle -40 -200 1.8 ffffff ffffff
+
+# Корпус
+rectangle -20 -90 40 150 dcdcdc f0f0f0
+
+# Носовой обтекатель
+triangle -20 -90 20 -90 0 -160 8b0000 dc143c
+
+# Иллюминатор
+circle 0 -30 14 333333 87ceeb
+
+# Левый стабилизатор
+triangle -20 -10 -20 30 -50 50 8b0000 a52a2a
+
+# Правый стабилизатор
+triangle 20 -10 20 30 50 50 8b0000 a52a2a
+
+# Панели корпуса
+line -20 -70 20 -70 999999
+line -20 -10 20 -10 999999
+line -20 50 20 50 999999
+
+# Пламя двигателя
+triangle -10 60 0 60 -5 120 ffd700 ff4500
+triangle 0 60 10 60 5 120 ffd700 ff4500
+triangle -4 60 4 60 0 140 ffff00 ff8c00
+
+# Далёкая планета
+circle 160 -120 35 191970 483d8b

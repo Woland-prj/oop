@@ -9,13 +9,22 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include(FetchContent)
 
 FetchContent_Declare(
-    Catch2
-    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    GIT_TAG v3.5.4
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG v3.5.4
 )
 
 FetchContent_MakeAvailable(Catch2)
 
+FetchContent_Declare(
+        FakeIt
+        GIT_REPOSITORY https://github.com/eranpeer/FakeIt.git
+        GIT_TAG 2.5.0
+)
+
+FetchContent_MakeAvailable(FakeIt)
+
 add_subdirectory(01)
 add_subdirectory(02)
 add_subdirectory(03)
+add_subdirectory(04)

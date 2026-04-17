@@ -1,0 +1,116 @@
+classDiagram
+    class Point {
+        +x: double
+        +y: double
+    }
+
+    class IShape {
+        <<interface>>
+        +GetArea() double
+        +GetPerimeter() double
+        +ToString() string
+        +GetOutlineColor() uint32_t
+    }
+
+    class ISolidShape {
+        <<interface>>
+        +GetFillColor() uint32_t
+    }
+
+    class ShapeBase {
+        +GetOutlineColor() uint32_t
+        #ShapeBase(uint32_t outlineColor)
+        #ColorToString(uint32_t color) string
+        #m_outlineColor uint32_t
+    }
+
+    class SolidShapeBase {
+        +GetOutlineColor() uint32_t
+        +GetFillColor() uint32_t
+        #SolidShapeBase(uint32_t outlineColor, uint32_t fillColor)
+        #m_fillColor uint32_t
+        -ShapeBase(uint32_t outlineColor)
+        -ColorToString(uint32_t color) string
+        -m_outlineColor uint32_t
+    }
+
+    class LineSegment {
+        +GetArea() double
+        +GetPerimeter() double
+        +ToString() string
+        +GetOutlineColor() uint32_t
+        +GetStartPoint() Point
+        +GetEndPoint() Point
+    }
+
+    class Triangle {
+        +GetArea() double
+        +GetPerimeter() double
+        +ToString() string
+        +GetOutlineColor() uint32_t
+        +GetFillColor() uint32_t
+        GetVertex1() Point
+        GetVertex2() Point
+        GetVertex3() Point
+    }
+
+    class Rectangle {
+        +GetArea() double
+        +GetPerimeter() double
+        +ToString() string
+        +GetOutlineColor() uint32_t
+        +GetFillColor() uint32_t
+        +GetTopLeft() Point
+        +GetWidth() double
+        +GetBottomRight() Point
+        +GetHeight() double
+    }
+
+    class Circle {
+        +GetArea() double
+        +GetPerimeter() double
+        +ToString() string
+        +GetOutlineColor() uint32_t
+        +GetFillColor() uint32_t
+        +GetCenter() Point
+        +GetRadius() double
+        +Draw(canvas: ICanvas)
+    }
+
+    class ICanvasDrawable {
+        <<interface>>
+        +Draw(canvas: ICanvas)
+    }
+
+    class ICanvas {
+        <<interface>>
+        +DrawLine(from: Point, to: Point, lineColor: uint32_t)
+        +FillPolygon(points: vector~Point~, fillColor: uint32_t)
+        +DrawCircle(center: Point, radius: double, lineColor: uint32_t)
+        +FillCircle(center: Point, radius: double, fillColor: uint32_t)
+    }
+
+    class Canvas {
+        +DrawLine(from: Point, to: Point, lineColor: uint32_t)
+        +FillPolygon(points: vector~Point~, fillColor: uint32_t)
+        +DrawCircle(center: Point, radius: double, lineColor: uint32_t)
+        +FillCircle(center: Point, radius: double, fillColor: uint32_t)
+    }
+
+    ICanvas <|.. Canvas
+    IShape <|.. LineSegment
+    ISolidShape <|.. Triangle
+    ISolidShape <|.. Rectangle
+    ISolidShape <|.. Circle
+    ICanvasDrawable <|.. LineSegment
+    ICanvasDrawable <|.. Triangle
+    ICanvasDrawable <|.. Rectangle
+    ICanvasDrawable <|.. Circle
+    IShape <|-- ISolidShape
+    ICanvas ..> Point
+    IShape <|.. ShapeBase
+    ICanvasDrawable ..> ICanvas
+    LineSegment --o Point
+    Triangle --o Point
+    Rectangle --o Point
+    Circle --o Point
