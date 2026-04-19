@@ -135,7 +135,7 @@ constexpr unsigned ToTimestamp(unsigned day, Month month, unsigned year)
 	return era * GREGORIAN_ERA_DAYS + doe - HINNANT_EPOCH_SHIFT;
 }
 
-// Алгоритм: Howard Hinnant civil_from_days — O(1), без циклов
+// Howard Hinnant civil_from_days
 static std::tuple<unsigned, Month, unsigned> FromTimestamp(unsigned days)
 {
 	// Сдвиг эпохи: 1970-01-01 → 0000-03-01 (внутренняя точка отсчёта)
