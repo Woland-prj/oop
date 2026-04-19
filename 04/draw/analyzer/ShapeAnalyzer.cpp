@@ -1,9 +1,10 @@
 #include "ShapeAnalyzer.h"
 #include <algorithm>
 
-namespace ShapeAnalyzer {
+namespace ShapeAnalyzer
+{
 
-const IShape* FindMaxArea(const std::vector<std::unique_ptr<IShape>>& shapes)
+const IShape* FindMaxArea(const std::vector<std::shared_ptr<IShape>>& shapes)
 {
 	if (shapes.empty())
 		return nullptr;
@@ -15,7 +16,7 @@ const IShape* FindMaxArea(const std::vector<std::unique_ptr<IShape>>& shapes)
 		->get();
 }
 
-const IShape* FindMinPerimeter(const std::vector<std::unique_ptr<IShape>>& shapes)
+const IShape* FindMinPerimeter(const std::vector<std::shared_ptr<IShape>>& shapes)
 {
 	if (shapes.empty())
 		return nullptr;

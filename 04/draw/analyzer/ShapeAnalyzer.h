@@ -5,11 +5,12 @@
 #include <memory>
 #include <vector>
 
-namespace ShapeAnalyzer {
+namespace ShapeAnalyzer
+{
 
-const IShape* FindMaxArea(const std::vector<std::unique_ptr<IShape>>& shapes);
+const IShape* FindMaxArea(const std::vector<std::shared_ptr<IShape>>& shapes);
 
-const IShape* FindMinPerimeter(const std::vector<std::unique_ptr<IShape>>& shapes);
+const IShape* FindMinPerimeter(const std::vector<std::shared_ptr<IShape>>& shapes);
 
 } // namespace ShapeAnalyzer
 

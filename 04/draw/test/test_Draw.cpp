@@ -210,14 +210,14 @@ TEST_CASE("LineSegment::Draw calls DrawLine once", "[line][draw]")
 
 TEST_CASE("ShapeParser::ParseColor handles various formats", "[parser]")
 {
-	auto rect = ShapeParser::Parse("rectangle 0 0 10 10 ff0000 00ff00");
-	auto* r = dynamic_cast<Rectangle*>(rect.get());
+	const auto ptrs = ShapeParser::Parse("rectangle 0 0 10 10 ff0000 00ff00");
+	auto* r = dynamic_cast<Rectangle*>(ptrs.first.get());
 	REQUIRE(r != nullptr);
 	CHECK(r->GetOutlineColor() == 0xFFFF0000);
 	CHECK(r->GetFillColor() == 0xFF00FF00);
 
-	auto rect2 = ShapeParser::Parse("rectangle 0 0 10 10 #ff0000 #00ff00");
-	auto* r2 = dynamic_cast<Rectangle*>(rect2.get());
+	const auto ptrs2 = ShapeParser::Parse("rectangle 0 0 10 10 #ff0000 #00ff00");
+	auto* r2 = dynamic_cast<Rectangle*>(ptrs.first.get());
 	REQUIRE(r2 != nullptr);
 	CHECK(r2->GetOutlineColor() == 0xFFFF0000);
 }
@@ -233,16 +233,16 @@ circle 50 50 5 00ff00 ff00ff
 
 )");
 
-	auto shapes = ShapeParser::ParseAll(input);
+	auto [shapeVec, drawableVec] = ShapeParser::ParseAll(input);
 
-	REQUIRE(shapes.size() == 2);
-	CHECK(dynamic_cast<Rectangle*>(shapes[0].get()) != nullptr);
-	CHECK(dynamic_cast<Circle*>(shapes[1].get()) != nullptr);
+	REQUIRE(shapeVec.size() == 2);
+	CHECK(dynamic_cast<Rectangle*>(shapeVec[0].get()) != nullptr);
+	CHECK(dynamic_cast<Circle*>(shapeVec[1].get()) != nullptr);
 }
 
 TEST_CASE("FindMaxArea returns shape with largest area", "[analyzer]")
 {
-	std::vector<std::unique_ptr<IShape>> shapes;
+	std::vector<std::shared_ptr<IShape>> shapes;
 
 	shapes.push_back(std::make_unique<Rectangle>(Point{ 0, 0 }, 2, 3, 0, 0));
 	shapes.push_back(std::make_unique<Circle>(Point{ 0, 0 }, 10, 0, 0));
@@ -256,7 +256,7 @@ TEST_CASE("FindMaxArea returns shape with largest area", "[analyzer]")
 
 TEST_CASE("FindMinPerimeter returns shape with smallest perimeter", "[analyzer]")
 {
-	std::vector<std::unique_ptr<IShape>> shapes;
+	std::vector<std::shared_ptr<IShape>> shapes;
 
 	shapes.push_back(std::make_unique<Rectangle>(Point{ 0, 0 }, 10, 10, 0, 0));
 	shapes.push_back(std::make_unique<LineSegment>(Point{ 0, 0 }, Point{ 1, 0 }, 0));
@@ -270,7 +270,7 @@ TEST_CASE("FindMinPerimeter returns shape with smallest perimeter", "[analyzer]"
 
 TEST_CASE("FindMaxArea/MinPerimeter return nullptr for empty vector", "[analyzer]")
 {
-	const std::vector<std::unique_ptr<IShape>> empty;
+	const std::vector<std::shared_ptr<IShape>> empty;
 
 	CHECK(ShapeAnalyzer::FindMaxArea(empty) == nullptr);
 	CHECK(ShapeAnalyzer::FindMinPerimeter(empty) == nullptr);

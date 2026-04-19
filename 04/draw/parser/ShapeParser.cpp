@@ -6,8 +6,10 @@
 
 #include <algorithm>
 #include <cctype>
+#include <memory>
 #include <sstream>
 #include <stdexcept>
+#include <utility>
 
 namespace ShapeParser::detail
 {
@@ -56,7 +58,7 @@ Point ParsePoint(const std::string& xStr, const std::string& yStr)
 	}
 }
 
-std::unique_ptr<IShape> ParseRectangle(std::istringstream& iss)
+std::pair<ShapePtr, DrawablePtr> ParseRectangle(std::istringstream& iss)
 {
 	double x, y, w, h;
 	std::string outlineHex, fillHex;
@@ -64,13 +66,15 @@ std::unique_ptr<IShape> ParseRectangle(std::istringstream& iss)
 	if (!(iss >> x >> y >> w >> h >> outlineHex >> fillHex))
 		throw std::invalid_argument("Rectangle: expected 6 parameters (x y w h outline fill)");
 
-	return std::make_unique<Rectangle>(
+	auto rect = std::make_shared<Rectangle>(
 		Point{ x, y }, w, h,
 		ParseColor(outlineHex),
 		ParseColor(fillHex));
+
+	return { rect, rect };
 }
 
-std::unique_ptr<IShape> ParseCircle(std::istringstream& iss)
+std::pair<ShapePtr, DrawablePtr> ParseCircle(std::istringstream& iss)
 {
 	double cx, cy, radius;
 	std::string outlineHex, fillHex;
@@ -78,13 +82,15 @@ std::unique_ptr<IShape> ParseCircle(std::istringstream& iss)
 	if (!(iss >> cx >> cy >> radius >> outlineHex >> fillHex))
 		throw std::invalid_argument("Circle: expected 5 parameters (cx cy r outline fill)");
 
-	return std::make_unique<Circle>(
+	auto circle = std::make_shared<Circle>(
 		Point{ cx, cy }, radius,
 		ParseColor(outlineHex),
 		ParseColor(fillHex));
+
+	return { circle, circle };
 }
 
-std::unique_ptr<IShape> ParseTriangle(std::istringstream& iss)
+std::pair<ShapePtr, DrawablePtr> ParseTriangle(std::istringstream& iss)
 {
 	double x1, y1, x2, y2, x3, y3;
 	std::string outlineHex, fillHex;
@@ -92,13 +98,15 @@ std::unique_ptr<IShape> ParseTriangle(std::istringstream& iss)
 	if (!(iss >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> outlineHex >> fillHex))
 		throw std::invalid_argument("Triangle: expected 8 parameters (x1 y1 x2 y2 x3 y3 outline fill)");
 
-	return std::make_unique<Triangle>(
+	auto triangle = std::make_shared<Triangle>(
 		Point{ x1, y1 }, Point{ x2, y2 }, Point{ x3, y3 },
 		ParseColor(outlineHex),
 		ParseColor(fillHex));
+
+	return { triangle, triangle };
 }
 
-std::unique_ptr<IShape> ParseLineSegment(std::istringstream& iss)
+std::pair<ShapePtr, DrawablePtr> ParseLineSegment(std::istringstream& iss)
 {
 	double x1, y1, x2, y2;
 	std::string outlineHex;
@@ -106,9 +114,11 @@ std::unique_ptr<IShape> ParseLineSegment(std::istringstream& iss)
 	if (!(iss >> x1 >> y1 >> x2 >> y2 >> outlineHex))
 		throw std::invalid_argument("LineSegment: expected 5 parameters (x1 y1 x2 y2 outline)");
 
-	return std::make_unique<LineSegment>(
+	auto lineSegment = std::make_shared<LineSegment>(
 		Point{ x1, y1 }, Point{ x2, y2 },
 		ParseColor(outlineHex));
+
+	return { lineSegment, lineSegment };
 }
 
 const DispatcherMap& GetHandlers()
@@ -141,7 +151,7 @@ std::string GetAvailableShapeTypes()
 namespace ShapeParser
 {
 
-std::unique_ptr<IShape> Parse(const std::string& line)
+std::pair<std::shared_ptr<IShape>, std::shared_ptr<ICanvasDrawable>> Parse(const std::string& line)
 {
 	std::istringstream iss(line);
 	std::string type;
@@ -160,9 +170,10 @@ std::unique_ptr<IShape> Parse(const std::string& line)
 	return it->second(iss);
 }
 
-std::vector<std::unique_ptr<IShape>> ParseAll(std::istream& input)
+std::pair<ShapeVec, DrawableVec> ParseAll(std::istream& input)
 {
-	std::vector<std::unique_ptr<IShape>> shapes;
+	ShapeVec svec;
+	DrawableVec dvec;
 	std::string line;
 	size_t lineNumber = 0;
 
@@ -181,7 +192,11 @@ std::vector<std::unique_ptr<IShape>> ParseAll(std::istream& input)
 
 		try
 		{
-			shapes.push_back(Parse(line));
+			auto [sptr, dptr] = Parse(line);
+			if (sptr)
+				svec.push_back(std::move(sptr));
+			if (dptr)
+				dvec.push_back(std::move(dptr));
 		}
 		catch (const std::exception& e)
 		{
@@ -189,7 +204,7 @@ std::vector<std::unique_ptr<IShape>> ParseAll(std::istream& input)
 		}
 	}
 
-	return shapes;
+	return { std::move(svec), std::move(dvec) };
 }
 
 } // namespace ShapeParser

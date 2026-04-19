@@ -42,7 +42,6 @@ enable_testing()
 
 add_executable(draw_tests
         test/test_Draw.cpp
-        test/MockCanvas.h
 )
 
 target_link_libraries(draw_tests

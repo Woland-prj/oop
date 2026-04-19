@@ -3,32 +3,39 @@
 
 #include "basic_types/IShape.h"
 #include "basic_types/Point.h"
+#include "canvas/ICanvasDrawable.h"
 #include <functional>
 #include <istream>
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 namespace ShapeParser
 {
 
-std::unique_ptr<IShape> Parse(const std::string& line);
+using ShapePtr = std::shared_ptr<IShape>;
+using DrawablePtr = std::shared_ptr<ICanvasDrawable>;
 
-std::vector<std::unique_ptr<IShape>> ParseAll(std::istream& input);
+using ShapeVec = std::vector<ShapePtr>;
+using DrawableVec = std::vector<DrawablePtr>;
+
+std::pair<ShapePtr, DrawablePtr> Parse(const std::string& line);
+std::pair<ShapeVec, DrawableVec> ParseAll(std::istream& input);
 
 namespace detail
 {
 
-using HandlerFunc = std::function<std::unique_ptr<IShape>(std::istringstream&)>;
+using HandlerFunc = std::function<std::pair<ShapePtr, DrawablePtr>(std::istringstream&)>;
 using DispatcherMap = std::unordered_map<std::string, HandlerFunc>;
 
 const DispatcherMap& GetHandlers();
 
-std::unique_ptr<IShape> ParseRectangle(std::istringstream& iss);
-std::unique_ptr<IShape> ParseCircle(std::istringstream& iss);
-std::unique_ptr<IShape> ParseTriangle(std::istringstream& iss);
-std::unique_ptr<IShape> ParseLineSegment(std::istringstream& iss);
+std::pair<ShapePtr, DrawablePtr> ParseRectangle(std::istringstream& iss);
+std::pair<ShapePtr, DrawablePtr> ParseCircle(std::istringstream& iss);
+std::pair<ShapePtr, DrawablePtr> ParseTriangle(std::istringstream& iss);
+std::pair<ShapePtr, DrawablePtr> ParseLineSegment(std::istringstream& iss);
 
 uint32_t ParseColor(const std::string& hex);
 Point ParsePoint(const std::string& xStr, const std::string& yStr);
