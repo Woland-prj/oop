@@ -9,9 +9,9 @@ public:
 	MyString();
 	MyString(const char* pString);
 	MyString(const char* pString, size_t length);
-	MyString(MyString const& other);
+	MyString(const MyString& other);
 	MyString(MyString&& other) noexcept;
-	MyString(std::string const& stlString);
+	MyString(const std::string& stlString);
 	~MyString();
 
 	size_t GetLength() const;

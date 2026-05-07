@@ -2,7 +2,7 @@
 #include "analyzer/ShapeAnalyzer.h"
 #include "basic_types/IShape.h"
 #include "canvas/ICanvasDrawable.h"
-#include "canvas/SfmlCanvas.h"
+#include "canvas/SFMLCanvas.h"
 #include "parser/ShapeParser.h"
 
 #include <SFML/Graphics.hpp>

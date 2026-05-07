@@ -24,8 +24,16 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(FakeIt)
 
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+
+FetchContent_MakeAvailable(googletest)
+
 add_subdirectory(01)
 add_subdirectory(02)
 add_subdirectory(03)
 add_subdirectory(04)
 add_subdirectory(05)
+add_subdirectory(06)

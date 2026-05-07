@@ -81,7 +81,7 @@ MyString::MyString(MyString&& other) noexcept
 	other.m_length = 0;
 }
 
-MyString::MyString(std::string const& stlString)
+MyString::MyString(const std::string& stlString)
 	: MyString(stlString.data(), stlString.length())
 {
 }
@@ -237,7 +237,6 @@ char& MyString::operator[](size_t index)
 {
 	if (index >= m_length)
 		throw std::out_of_range("index > length of string");
-
 	return m_data[index];
 }
 
