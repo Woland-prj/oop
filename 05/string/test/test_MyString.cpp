@@ -15,12 +15,12 @@
 		REQUIRE((str).GetStringData()[(expected_len)] == '\0');                            \
 	} while (0)
 
-#define REQUIRE_INVARIANTS(str)                                             \
-	do                                                                      \
-	{                                                                       \
-		REQUIRE((str).GetStringData() != nullptr);                          \
-		REQUIRE((str).GetStringData()[(str).GetLength()] == '\0');          \
-		REQUIRE((str).GetCapacity() >= (str).GetLength());                  \
+#define REQUIRE_INVARIANTS(str)                                    \
+	do                                                             \
+	{                                                              \
+		REQUIRE((str).GetStringData() != nullptr);                 \
+		REQUIRE((str).GetStringData()[(str).GetLength()] == '\0'); \
+		REQUIRE((str).GetCapacity() >= (str).GetLength());         \
 	} while (0)
 
 TEST_CASE("Default constructor", "[constructor]")
@@ -1417,4 +1417,273 @@ TEST_CASE("Input operator >> null chars in input", "[operator>>]")
 	// Примечание: текстовый operator>> остановится на '\0', т.к.
 	// в большинстве локалей '\0' считается управляющим символом.
 	// Для чтения строк с '\0' внутри нужен отдельный бинарный метод.
+}
+
+TEST_CASE("Iterator begin/end", "[iterator]")
+{
+	MyString s("Hello");
+
+	auto it = s.begin();
+	auto end = s.end();
+
+	REQUIRE(it != end);
+	REQUIRE(*it == 'H');
+
+	++it;
+	REQUIRE(*it == 'e');
+
+	++it;
+	++it;
+	++it;
+
+	REQUIRE(*it == 'o');
+
+	++it;
+	REQUIRE(it == end);
+}
+
+TEST_CASE("Const iterator", "[iterator][const]")
+{
+	const MyString s("World");
+
+	MyString::const_iterator it = s.begin();
+
+	REQUIRE(*it == 'W');
+
+	++it;
+	REQUIRE(*it == 'o');
+
+	static_assert(std::is_same_v<
+		decltype(*it),
+		const char&>);
+}
+
+TEST_CASE("Iterator modification", "[iterator][write]")
+{
+	MyString s("abc");
+
+	for (auto it = s.begin(); it != s.end(); ++it)
+	{
+		*it = static_cast<char>(std::toupper(*it));
+	}
+
+	REQUIRE(s == "ABC");
+}
+
+TEST_CASE("Range-based for support", "[iterator][range-for]")
+{
+	SECTION("Non-const string")
+	{
+		MyString s("hello");
+
+		for (char& ch : s)
+		{
+			ch = static_cast<char>(std::toupper(ch));
+		}
+
+		REQUIRE(s == "HELLO");
+	}
+
+	SECTION("Const string")
+	{
+		const MyString s("abc");
+
+		std::string collected;
+
+		for (const char ch : s)
+		{
+			collected += ch;
+		}
+
+		REQUIRE(collected == "abc");
+	}
+}
+
+TEST_CASE("Iterator arithmetic", "[iterator][arithmetic]")
+{
+	MyString s("abcdef");
+
+	auto it = s.begin();
+
+	REQUIRE(*(it + 0) == 'a');
+	REQUIRE(*(it + 1) == 'b');
+	REQUIRE(*(it + 5) == 'f');
+
+	it += 3;
+	REQUIRE(*it == 'd');
+
+	it -= 2;
+	REQUIRE(*it == 'b');
+
+	auto end = s.end();
+
+	REQUIRE(end - it == 5);
+	REQUIRE((it + 5) == end);
+
+	REQUIRE(*(3 + s.begin()) == 'd');
+}
+
+TEST_CASE("Iterator indexing operator[]", "[iterator][index]")
+{
+	MyString s("abcdef");
+
+	auto it = s.begin();
+
+	REQUIRE(it[0] == 'a');
+	REQUIRE(it[1] == 'b');
+	REQUIRE(it[5] == 'f');
+
+	it[1] = 'X';
+
+	REQUIRE(s == "aXcdef");
+}
+
+TEST_CASE("Iterator comparisons", "[iterator][compare]")
+{
+	MyString s("abc");
+
+	auto b = s.begin();
+	auto e = s.end();
+
+	REQUIRE(b < e);
+	REQUIRE(e > b);
+	REQUIRE(b <= e);
+	REQUIRE(e >= b);
+
+	REQUIRE(b == b);
+	REQUIRE(b != e);
+
+	++b;
+	REQUIRE(*b == 'b');
+}
+
+TEST_CASE("Reverse iterator", "[iterator][reverse]")
+{
+	MyString s("abc");
+
+	std::string reversed;
+
+	for (auto it = s.rbegin(); it != s.rend(); ++it)
+	{
+		reversed += *it;
+	}
+
+	REQUIRE(reversed == "cba");
+}
+
+TEST_CASE("Const reverse iterator", "[iterator][reverse][const]")
+{
+	const MyString s("xyz");
+
+	std::string reversed;
+
+	for (auto it = s.rbegin(); it != s.rend(); ++it)
+	{
+		reversed += *it;
+	}
+
+	REQUIRE(reversed == "zyx");
+}
+
+TEST_CASE("STL algorithms compatibility", "[iterator][stl]")
+{
+	SECTION("std::reverse")
+	{
+		MyString s("abcdef");
+
+		std::reverse(s.begin(), s.end());
+
+		REQUIRE(s == "fedcba");
+	}
+
+	SECTION("std::sort")
+	{
+		MyString s("dbca");
+
+		std::sort(s.begin(), s.end());
+
+		REQUIRE(s == "abcd");
+	}
+
+	SECTION("std::find")
+	{
+		MyString s("hello");
+
+		auto it = std::find(s.begin(), s.end(), 'l');
+
+		REQUIRE(it != s.end());
+		REQUIRE(*it == 'l');
+		REQUIRE(it - s.begin() == 2);
+	}
+
+	SECTION("std::count")
+	{
+		MyString s("banana");
+
+		auto count = std::count(s.begin(), s.end(), 'a');
+
+		REQUIRE(count == 3);
+	}
+}
+
+TEST_CASE("Iterators with null characters", "[iterator][null-char]")
+{
+	const char raw[] = { 'A', '\0', 'B', '\0', 'C' };
+
+	MyString s(raw, 5);
+
+	auto it = s.begin();
+
+	REQUIRE(*it == 'A');
+
+	++it;
+	REQUIRE(*it == '\0');
+
+	++it;
+	REQUIRE(*it == 'B');
+
+	++it;
+	REQUIRE(*it == '\0');
+
+	++it;
+	REQUIRE(*it == 'C');
+
+	++it;
+	REQUIRE(it == s.end());
+}
+
+TEST_CASE("Iterator distance", "[iterator][distance]")
+{
+	MyString s("123456789");
+
+	auto b = s.begin();
+	auto e = s.end();
+
+	REQUIRE(std::distance(b, e) == 9);
+
+	auto mid = b + 4;
+
+	REQUIRE(std::distance(b, mid) == 4);
+	REQUIRE(std::distance(mid, e) == 5);
+}
+
+TEST_CASE("Iterator compatibility with std::copy", "[iterator][copy]")
+{
+	MyString s("CopyTest");
+
+	std::string result;
+
+	std::copy(s.begin(), s.end(), std::back_inserter(result));
+
+	REQUIRE(result == "CopyTest");
+}
+
+TEST_CASE("Empty string iterators", "[iterator][empty]")
+{
+	MyString s;
+
+	REQUIRE(s.begin() == s.end());
+	REQUIRE(s.rbegin() == s.rend());
+
+	REQUIRE(std::distance(s.begin(), s.end()) == 0);
 }

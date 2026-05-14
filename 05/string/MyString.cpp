@@ -1,6 +1,7 @@
 #include "MyString.h"
 
 #include <algorithm>
+#include <cassert>
 #include <istream>
 #include <ostream>
 
@@ -292,4 +293,64 @@ std::istream& operator>>(std::istream& is, MyString& str)
 		delete[] buffer;
 
 	return is;
+}
+
+MyString::iterator MyString::begin()
+{
+	return iterator(m_data);
+}
+
+MyString::iterator MyString::end()
+{
+	return iterator(m_data + m_length);
+}
+
+MyString::const_iterator MyString::begin() const
+{
+	return const_iterator(m_data);
+}
+
+MyString::const_iterator MyString::end() const
+{
+	return const_iterator(m_data + m_length);
+}
+
+MyString::const_iterator MyString::cbegin() const
+{
+	return const_iterator(m_data);
+}
+
+MyString::const_iterator MyString::cend() const
+{
+	return const_iterator(m_data + m_length);
+}
+
+MyString::reverse_iterator MyString::rbegin()
+{
+	return reverse_iterator(end());
+}
+
+MyString::reverse_iterator MyString::rend()
+{
+	return reverse_iterator(begin());
+}
+
+MyString::const_reverse_iterator MyString::rbegin() const
+{
+	return const_reverse_iterator(end());
+}
+
+MyString::const_reverse_iterator MyString::rend() const
+{
+	return const_reverse_iterator(begin());
+}
+
+MyString::const_reverse_iterator MyString::crbegin() const
+{
+	return const_reverse_iterator(cend());
+}
+
+MyString::const_reverse_iterator MyString::crend() const
+{
+	return const_reverse_iterator(cbegin());
 }
