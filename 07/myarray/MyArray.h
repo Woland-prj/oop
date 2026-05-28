@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <format>
 #include <iterator>
 #include <memory>
 #include <stdexcept>
@@ -263,25 +264,18 @@ public:
 		}
 
 		if (newSize > m_capacity)
-		{
 			Reserve(CalculateGrowthCapacity(newSize));
-		}
 
 		size_type constructed = m_size;
 
 		try
 		{
 			for (; constructed < newSize; ++constructed)
-			{
 				std::construct_at(m_data + constructed);
-			}
 		}
 		catch (...)
 		{
-			DestroyRange(
-				m_data + m_size,
-				constructed - m_size);
-
+			DestroyRange(m_data + m_size, constructed - m_size);
 			throw;
 		}
 
@@ -375,10 +369,8 @@ private:
 	template <typename U>
 	void EmplaceBackInternal(U&& value)
 	{
-		if (m_size == m_capacity)
-		{
+		if (m_size >= m_capacity)
 			Reserve(GrowCapacity(m_capacity));
-		}
 
 		std::construct_at(
 			m_data + m_size,
@@ -390,9 +382,7 @@ private:
 	void Reserve(size_type newCapacity)
 	{
 		if (newCapacity <= m_capacity)
-		{
 			return;
-		}
 
 		pointer newData = Allocate(newCapacity);
 
@@ -401,11 +391,9 @@ private:
 		try
 		{
 			for (; constructed < m_size; ++constructed)
-			{
 				std::construct_at(
 					newData + constructed,
 					std::move_if_noexcept(m_data[constructed]));
-			}
 		}
 		catch (...)
 		{
@@ -424,9 +412,7 @@ private:
 	void CopyFrom(InputIterator source, size_type size)
 	{
 		if (size == 0)
-		{
 			return;
-		}
 
 		pointer data = Allocate(size);
 
@@ -435,11 +421,9 @@ private:
 		try
 		{
 			for (; constructed < size; ++constructed)
-			{
 				std::construct_at(
 					data + constructed,
 					*(source + constructed));
-			}
 		}
 		catch (...)
 		{
@@ -457,9 +441,7 @@ private:
 	void CopyConvertedFrom(InputIterator source, size_type size)
 	{
 		if (size == 0)
-		{
 			return;
-		}
 
 		pointer data = Allocate(size);
 
@@ -468,11 +450,9 @@ private:
 		try
 		{
 			for (; constructed < size; ++constructed)
-			{
 				std::construct_at(
 					data + constructed,
 					static_cast<T>(*(source + constructed)));
-			}
 		}
 		catch (...)
 		{
@@ -489,17 +469,13 @@ private:
 	void CheckIndex(size_type index) const
 	{
 		if (index >= m_size)
-		{
-			throw std::out_of_range("Index is out of range");
-		}
+			throw std::out_of_range(std::format("Index {} is out of range", index));
 	}
 
 	static pointer Allocate(size_type capacity)
 	{
 		if (capacity == 0)
-		{
 			return nullptr;
-		}
 
 		return static_cast<pointer>(
 			::operator new(sizeof(T) * capacity));
@@ -510,14 +486,10 @@ private:
 		size_type size) noexcept
 	{
 		if (data == nullptr)
-		{
 			return;
-		}
 
 		for (size_type i = 0; i < size; ++i)
-		{
 			std::destroy_at(data + i);
-		}
 	}
 
 	static void DestroyAndDeallocate(
@@ -530,9 +502,7 @@ private:
 
 	static size_type GrowCapacity(size_type currentCapacity) noexcept
 	{
-		return currentCapacity == 0
-			? 1
-			: currentCapacity * 2;
+		return currentCapacity == 0 ? 1 : currentCapacity * 2;
 	}
 
 	size_type CalculateGrowthCapacity(size_type requiredCapacity) const noexcept
@@ -540,9 +510,7 @@ private:
 		size_type capacity = std::max<size_type>(1, m_capacity);
 
 		while (capacity < requiredCapacity)
-		{
 			capacity *= 2;
-		}
 
 		return capacity;
 	}
